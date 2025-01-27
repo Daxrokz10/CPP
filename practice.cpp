@@ -1,6 +1,9 @@
 #include <iostream>
 
 int main(){
-    std::cout << "Hello World";
+    float x = 10;
+    int y = 3;
+    float z = x/y;
+    std::cout << z;
     return 0;
 }
