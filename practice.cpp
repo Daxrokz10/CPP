@@ -1,9 +1,13 @@
 #include <iostream>
 
 int main(){
-    float x = 10;
-    int y = 3;
-    float z = x/y;
+    double x;
+    double y;
+    std::cout << "Enter value of x: ";
+    std::cin >> x;
+    std::cout << "Enter value of y: ";
+    std::cin >> y;
+    double z = (x+10)/(3*y);
     std::cout << z;
     return 0;
 }
