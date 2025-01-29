@@ -1,13 +1,13 @@
 #include <iostream>
-
+using namespace std;
 int main(){
-    double x;
-    double y;
-    std::cout << "Enter value of x: ";
-    std::cin >> x;
-    std::cout << "Enter value of y: ";
-    std::cin >> y;
-    double z = (x+10)/(3*y);
-    std::cout << z;
+    int i = 0;
+
+    for(i=1;i<=5;i++){
+        for(int j=i;j>=1;j--){
+            cout<<"* ";
+        }
+        cout<<endl;
+    }
     return 0;
 }
