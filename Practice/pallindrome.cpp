@@ -17,7 +17,7 @@ int main(){
     }
 
     if(reversedNum == num){
-        cout<<num<<" is a pallindrome number!"<<endl;
+        cout<<num<<" is a pallindrome number!"<<"\n";
     }else{
         cout<<num<<" is not a pallindrome number!"<<endl;
     }
