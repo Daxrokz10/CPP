@@ -1,25 +1,20 @@
-#include<iostream>
+#include <iostream>
 using namespace std;
 
-int main(){
-    int num;
+class Solution {
+public:
+    bool isPalindrome(int num) {
+        if (num < 0) return false; // Negative numbers are not palindromes
 
-    cout<<"Enter number";
-    cin>>num;
+        int temp = num;
+        long long reversedNum = 0;
 
-    int temp = num;
-    int reversedNum = 0;
+        while (temp != 0) {
+            int digit = temp % 10;
+            reversedNum = reversedNum * 10 + digit;
+            temp /= 10;
+        }
 
-    while(temp != 0){
-        int digit = temp % 10;
-        reversedNum = reversedNum * 10 + digit;
-        temp /= 10;
+        return reversedNum == num;
     }
-
-    if(reversedNum == num){
-        cout<<num<<" is a pallindrome number!"<<"\n";
-    }else{
-        cout<<num<<" is not a pallindrome number!"<<endl;
-    }
-    
-}
+};
