@@ -1,17 +1,19 @@
 #include <iostream>
 using namespace std;
 
-int table(int n){
-    for(int i=1;i<=10;i++){
-        cout<<n<<" X "<<i<<" = "<<n*i<<endl;
-    }
-    return n;
-}
+int main() {
+    int arr[10];
 
-int main(){
-    int n;
-    cout<<"Enter the number: ";
-    cin>>n;
-    table(n);
+    for (int i = 0; i < 5; i++) {
+        cout<<"Enter The value for arr["<<i<<"]: ";
+        cin>>arr[i];
+    }
+    cout << endl<<endl;
+
+    for(int i = 0; i < 10; i++){
+        cout<<"arr["<<i<<"]:"<<arr[i];
+        cout<<endl;
+    }
+
     return 0;
 }
