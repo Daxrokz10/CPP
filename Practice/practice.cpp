@@ -10,8 +10,8 @@ int main() {
     }
     cout << endl<<endl;
 
-    for(int i = 0; i < 10; i++){
-        cout<<"arr["<<i<<"]:"<<arr[i];
+    for(int e : arr){
+        cout<<e;
         cout<<endl;
     }
 
