@@ -66,7 +66,12 @@ int main(){
                 cout<<"Enter element to delete: ";
                 cin>>index;
                 
-                arr[index] = void;
+                for(int i=size-1;i>index;i--){
+                    temp = arr[i];
+                    arr[i-1] = temp;
+                    
+                }
+                size-=1;
                 break;
             case 5:
                 cout<<endl<<"exit..."<<endl;
