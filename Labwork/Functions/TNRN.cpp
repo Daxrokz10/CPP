@@ -8,3 +8,4 @@ void tnrn(){
 int main(){
     tnrn();
 }
+
