@@ -1,5 +1,37 @@
+#include "crud.h"
 #include <iostream>
 using namespace std;
+
+void create(int arr[], int &size, int element) {
+    arr[size] = element;
+    size++;
+}
+
+void read(int arr[], int size) {
+    for (int i = 0; i < size; i++) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
+}
+
+void update(int arr[], int size, int index, int element) {
+    if (index >= 0 && index < size) {
+        arr[index] = element;
+    } else {
+        cout << "Index out of bounds" << endl;
+    }
+}
+
+void deleteElement(int arr[], int &size, int index) {
+    if (index >= 0 && index < size) {
+        for (int i = index; i < size - 1; i++) {
+            arr[i] = arr[i + 1];
+        }
+        size--;
+    } else {
+        cout << "Index out of bounds" << endl;
+    }
+}
 
 void crud(int arr[], int &size) {
     int index, element, choice;
@@ -19,22 +51,13 @@ void crud(int arr[], int &size) {
         switch (choice) {
             case 1:
                 cout << endl << endl;
-                for (int i = 0; i < size; i++) {
-                    cout << "Value of arr[" << i << "]: " << arr[i] << endl;
-                }
+                read(arr, size);
                 break;
             case 2:
                 cout << endl << endl;
-                cout << "Enter index to be inserted at: ";
-                cin >> index;
                 cout << "Enter value of element: ";
                 cin >> element;
-
-                for (int i = size; i > index; i--) {
-                    arr[i] = arr[i - 1];
-                }
-                size++;
-                arr[index] = element;
+                create(arr, size, element);
                 break;
             case 3:
                 cout << endl << endl;
@@ -42,17 +65,13 @@ void crud(int arr[], int &size) {
                 cin >> index;
                 cout << "Enter value of element: ";
                 cin >> element;
-                arr[index] = element;
+                update(arr, size, index, element);
                 break;
             case 4:
                 cout << endl << endl;
                 cout << "Enter index to be deleted: ";
                 cin >> index;
-
-                for (int i = index; i < size - 1; i++) {
-                    arr[i] = arr[i + 1];
-                }
-                size--;
+                deleteElement(arr, size, index);
                 break;
             default:
                 if (choice != 5) {
