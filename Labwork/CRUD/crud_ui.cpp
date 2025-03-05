@@ -15,10 +15,23 @@ void displayMenu() {
     cout << "Enter your choice: ";
 }
 
+void initializeArray(int* arr, int& size) {
+    cout << "Enter the size of array: ";
+    cin >> size;
+
+    cout << "Create array" << endl;
+    for (int i = 0; i < size; i++) {
+        cout << "Enter value for element arr[" << i << "]: ";
+        cin >> arr[i];
+    }
+}
+
 int main() {
     int arr[100];
     int size = 0;
     int choice, element, index;
+
+    initializeArray(arr, size);
 
     do {
         displayMenu();
@@ -30,21 +43,33 @@ int main() {
                 read(arr, size);
                 break;
             case 2:
-                cout << "Enter element to insert: ";
-                cin >> element;
-                create(arr, size, element);
+                if (size >= 100) {
+                    cout << "Array is full. Cannot insert more elements." << endl;
+                } else {
+                    cout << "Enter element to insert: ";
+                    cin >> element;
+                    create(arr, size, element);
+                }
                 break;
             case 3:
                 cout << "Enter index to update: ";
                 cin >> index;
-                cout << "Enter new value: ";
-                cin >> element;
-                update(arr, size, index, element);
+                if (index < 0 || index >= size) {
+                    cout << "Invalid index. Please try again." << endl;
+                } else {
+                    cout << "Enter new value: ";
+                    cin >> element;
+                    update(arr, size, index, element);
+                }
                 break;
             case 4:
                 cout << "Enter index to delete: ";
                 cin >> index;
-                deleteElement(arr, size, index);
+                if (index < 0 || index >= size) {
+                    cout << "Invalid index. Please try again." << endl;
+                } else {
+                    deleteElement(arr, size, index);
+                }
                 break;
             case 5:
                 cout << "Exiting..." << endl;
