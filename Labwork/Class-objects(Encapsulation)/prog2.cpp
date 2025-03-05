@@ -26,14 +26,14 @@ int main() {
     cout << "Enter the number of students: ";
     cin >> size;
 
-    vector<Student> students(size);
+    vector<Student> students(size); // Vector of Student objects
 
     for (int i = 0; i < size; i++) {
-        students[i].setStdDetails(i);
+        students[i].setStdDetails(i); // Accessing each Student object
     }
 
     for (int i = 0; i < size; i++) {
-        students[i].getStdDetails(i);
+        students[i].getStdDetails(i); // Accessing each Student object
     }
 
     return 0;
