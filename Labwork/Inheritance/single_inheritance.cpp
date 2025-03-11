@@ -34,6 +34,9 @@ class Child:public Parent{
 
 int main()
 {
-    
+    Child c1;
+    c1.setParent();
+    c1.setChild();
+    c1.getParent_Child();
     return 0;
 }
