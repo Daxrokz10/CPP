@@ -94,6 +94,40 @@ void addEmployeeToDatabase(sql::Connection* conn, Employee& emp, Salary& sal) {
     delete pstmt;
 }
 
+void loadEmployeesFromDatabase(sql::Connection* conn, vector<Employee>& employees, vector<Salary>& salary) {
+    sql::Statement* stmt = conn->createStatement();
+    sql::ResultSet* res = stmt->executeQuery("SELECT * FROM employees");
+
+    while (res->next()) {
+        Employee emp;
+        Salary sal;
+
+        emp.Emp_id = res->getInt("Emp_id");
+        emp.Emp_name = res->getString("Emp_name");
+        emp.Emp_pos = res->getString("Emp_pos");
+
+        sal.Emp_id = emp.Emp_id;
+        sal.Emp_name = emp.Emp_name;
+        sal.Emp_pos = emp.Emp_pos;
+        sal.base_salary = res->getInt("Base_salary");
+        sal.HRA = res->getInt("HRA");
+        sal.DA = res->getInt("DA");
+        sal.PF = res->getInt("PF");
+        sal.PT = res->getInt("PT");
+        sal.TA = res->getInt("TA");
+        sal.gross_salary = res->getInt("Gross_salary");
+        sal.net_salary = res->getInt("Net_salary");
+
+        employees.push_back(emp);
+        salary.push_back(sal);
+    }
+
+    delete res;
+    delete stmt;
+
+    cout << "Employee data loaded from the database successfully!" << endl;
+}
+
 int main() {
     sql::Connection* conn = connectToDatabase();
 
@@ -103,6 +137,9 @@ int main() {
     Salary sal;
     vector<Employee> employees;
     vector<Salary> salary;
+
+    // Load employees from the database at the start of the program
+    loadEmployeesFromDatabase(conn, employees, salary);
 
     do {
         cout << "\nMenu:\n";
@@ -122,30 +159,25 @@ int main() {
                 addEmployeeToDatabase(conn, emp, sal); // Add employee to MySQL database
                 break;
             case 2:
-                cout << "Enter Employee ID to change data: ";
-                cin >> emp_id;
-                for (int i = 0; i < employees.size(); i++) {
-                    if(employees[i].Emp_id == emp_id){
-                        cout << "\nEmployee " << i + 1 << " Details:\n";
-                        employees[i].getEmployee();
-                        salary[i].displaySalaryDetails();
-                    }
-                    
+                for (size_t i = 0; i < employees.size(); i++) {
+                    cout << "\nEmployee " << i + 1 << " Details:\n";
+                    employees[i].getEmployee();
+                    salary[i].displaySalaryDetails();
                 }
                 break;
             case 3:
                 int choice_upd;
                 cout << "Enter Employee ID to change data: ";
                 cin >> emp_id;
-                cout<<"Enter 1 to update General Data: "<<endl;
-                cout<<"Enter 2 to update Salary Data "<<endl;
-                cout<<"Enter your choice: "<<endl;;
-                cin>>choice_upd;
+                cout << "Enter 1 to update General Data: " << endl;
+                cout << "Enter 2 to update Salary Data " << endl;
+                cout << "Enter your choice: " << endl;
+                cin >> choice_upd;
 
-                switch (choice_upd){
+                switch (choice_upd) {
                     case 1:
-                        for(int i = 0;i<employees.size();i++){
-                            if(employees[i].Emp_id == emp_id){
+                        for (size_t i = 0; i < employees.size(); i++) {
+                            if (employees[i].Emp_id == emp_id) {
                                 cout << "Updating General details for Employee ID: " << emp_id << endl;
                                 employees[i].setEmployee();
                             }
@@ -153,19 +185,19 @@ int main() {
                         break;
 
                     case 2:
-                        for (int i = 0; i < employees.size(); i++){
+                        for (size_t i = 0; i < employees.size(); i++) {
                             if (employees[i].Emp_id == emp_id) {
                                 cout << "Updating salary details for Employee ID: " << emp_id << endl;
                                 salary[i].setSalaryDetails();
+                            }
                         }
-                    }
                         break;
                     default:
-                        cout<<"Invalid choice"<<endl;
+                        cout << "Invalid choice" << endl;
                 }
-                
+
                 break;
-            
+
             case 4:
                 cout << "WARNING: ALL DATA FOR THE EMPLOYEE WILL BE DELETED" << endl;
                 cout << "Enter Employee ID for which data has to be deleted: ";
@@ -175,11 +207,17 @@ int main() {
                         cout << "Deleting data for Employee ID: " << emp_id << endl;
                         employees.erase(employees.begin() + i);
                         salary.erase(salary.begin() + i);
+
+                        // Remove employee from the database
+                        sql::PreparedStatement* pstmt = conn->prepareStatement("DELETE FROM employees WHERE Emp_id = ?");
+                        pstmt->setInt(1, emp_id);
+                        pstmt->execute();
+                        delete pstmt;
+
                         break;
                     }
                 }
                 break;
-                
         }
     } while (choice != 5);
 
