@@ -11,7 +11,7 @@ int main()
     vector<int> v1(n);
     vector<int> v2;
 
-    for(int i=0;i<v1.size()-1;i++){
+    for(int i=0;i<v1.size();i++){
         cout<<"Enter v1["<<i<<"] : ";
         cin>>v1[i];
     }
