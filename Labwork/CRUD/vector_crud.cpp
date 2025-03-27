@@ -5,14 +5,24 @@ using namespace std;
 class VectorCrud{
     public:
         vector<int> v1;
+        vector<int> numElem;
 
     void viewElement(){
         for(int i=0;i<v1.size();i++){
             cout<<"v1["<<i<<"] : "<<v1[i]<<endl;
         }
     }
-    void insertElement(int element){
-        v1.push_back(element);
+    void insertElement(){
+        int numElements;
+        int element;
+        cout<<"Enter number of elements to be inserted: ";
+        cin>>numElements;
+        for(int i=0;i<numElements;i++){
+            cout<<"Enter new element "<<i<<" :";
+            cin>>element;
+            v1.push_back(element);
+        }
+        
     }
     void updateElement(int index,int element){
         if(index >= 0 && index < v1.size()){
@@ -50,9 +60,7 @@ int main()
                 vec.viewElement();
                 break;
             case 2:
-                cout<<"Enter element: ";
-                cin>>element;
-                vec.insertElement(element);
+                vec.insertElement();
                 break;
             case 3:
                 cout<<"Enter index of element to update: ";
