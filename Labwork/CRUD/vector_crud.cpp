@@ -5,7 +5,6 @@ using namespace std;
 class VectorCrud{
     public:
         vector<int> v1;
-        vector<int> numElem;
 
     void viewElement(){
         for(int i=0;i<v1.size();i++){
