@@ -17,24 +17,11 @@ void printList(Node* head) {
     cout << "NULL" << endl;
 }
 
-void deleteNode(Node*& head, int value) {
-    if (!head) return;
-
-    if (head->data == value) {
+// Function to clean up memory
+void freeList(Node* head) {
+    while (head != nullptr) {
         Node* temp = head;
         head = head->next;
-        delete temp;
-        return;
-    }
-
-    Node* current = head;
-    while (current->next && current->next->data != value) {
-        current = current->next;
-    }
-
-    if (current->next) {
-        Node* temp = current->next;
-        current->next = current->next->next;
         delete temp;
     }
 }
@@ -44,15 +31,16 @@ int main() {
     Node* head = new Node{1, nullptr};
     Node* second = new Node{2, nullptr};
     Node* third = new Node{3, nullptr};
-    
 
     // Linking nodes
     head->next = second;
     second->next = third;
 
     // Printing the list
-    deleteNode(head,3);
     printList(head);
+
+    // Freeing memory
+    freeList(head);
 
     return 0;
 }
