@@ -8,7 +8,7 @@ struct Node{
 void printList(Node* head){
     Node* temp = head;
     while(temp != nullptr){
-        cout<<temp->data<<" ->";
+        cout<<temp->data<<"->";
         temp = temp->next;
     }
     cout<<"NULL"<<endl;
