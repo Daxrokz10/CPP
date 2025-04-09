@@ -61,6 +61,37 @@ class LinkedList {
                 temp->next = newNode;
             }
         }
+
+        void updateAtIndex(int index, int data){
+            Node* newnode = new Node(data);
+            if(index == 0){
+                this->head = newnode;
+
+            }else if(index > 0 && index <= this->size){
+                Node* temp = this->head;
+                for(int i=0; i<index-1;i++){
+                    temp = temp->next;
+                }
+                temp->data = data;
+            }
+        }
+
+        void deleteAtIndex(int index){
+            if (index == 0){
+                Node* toDelete = this->head;
+                this->head = this->head->next;
+                delete toDelete;
+            }else if(index > 0 && index <= this->size){
+                Node* temp = this->head;
+                for(int i=0; i<index-1; i++){
+                    temp = temp->next;
+                }
+                Node* toDelete = temp->next;
+                temp->next = temp->next->next;
+                delete toDelete;
+            }
+        }
+        
         void displayList(){
             Node* temp = this->head;
             while (temp != nullptr) {
@@ -69,6 +100,7 @@ class LinkedList {
             }
             cout << "NULL" << endl; 
         }
+
 
 };
 
@@ -80,6 +112,10 @@ int main() {
     list.insertAtFront(0); // Insert at front
     list.insertAtFront(-1); // Insert at front
     list.insertAtIndex(2, 5); // Insert at index 2
+    list.displayList();
+    list.updateAtIndex(2, 10); // Update at index 2
+    list.displayList();
+    list.deleteAtIndex(2); // Delete at index 3
     list.displayList();
 
     return 0;
