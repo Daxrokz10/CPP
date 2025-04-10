@@ -54,22 +54,22 @@ class LinkedList {
             }
             else if(index > 0 && index <= this->size){
                 Node* temp = this->head;
-                for(int i = 0; i<index-1; i++){
+                for(int i = 0; i<index; i++){
                     temp = temp->next;
                 }
                 newNode->next = temp->next;
                 temp->next = newNode;
             }
+            size++;
         }
 
         void updateAtIndex(int index, int data){
-            Node* newnode = new Node(data);
             if(index == 0){
-                this->head = newnode;
+                this->head->data = data;
 
             }else if(index > 0 && index <= this->size){
                 Node* temp = this->head;
-                for(int i=0; i<index-1;i++){
+                for(int i=0; i<index;i++){
                     temp = temp->next;
                 }
                 temp->data = data;
@@ -91,6 +91,34 @@ class LinkedList {
                 delete toDelete;
             }
         }
+
+        void deleteAtFront(){
+            if(this->head == nullptr){
+                cout<<"List is empty"<<endl;
+                return;
+            }
+            Node* toDelete = this->head;
+            this->head = this->head->next;
+            delete toDelete;
+        }
+
+        void deleteAtEnd(){
+            if(this->head == nullptr){
+                cout<<"List is empty"<<endl;
+                return;
+            }
+            if(this->head->next == nullptr){
+                delete this->head;
+                this->head = nullptr;
+                return;
+            }
+            Node* temp = this->head;
+            while(temp->next->next != nullptr){
+                temp = temp->next;
+            }
+            delete temp->next;
+            temp->next = nullptr;
+        }
         
         void displayList(){
             Node* temp = this->head;
@@ -106,17 +134,73 @@ class LinkedList {
 
 int main() {
     LinkedList list;
-    list.insertAtEnd(1);
-    list.insertAtEnd(2);
-    list.insertAtEnd(3);
-    list.insertAtFront(0); // Insert at front
-    list.insertAtFront(-1); // Insert at front
-    list.insertAtIndex(2, 5); // Insert at index 2
-    list.displayList();
-    list.updateAtIndex(2, 10); // Update at index 2
-    list.displayList();
-    list.deleteAtIndex(2); // Delete at index 3
-    list.displayList();
+    int choice;
+
+    do{
+        cout<<"Enter 1 to insert at end"<<endl;
+        cout<<"Enter 2 to insert at front"<<endl;
+        cout<<"Enter 3 to insert at index"<<endl;
+        cout<<"Enter 4 to update at index"<<endl;
+        cout<<"Enter 5 to delete at index"<<endl;
+        cout<<"Enter 6 to display the list"<<endl;
+        cout<<"Enter 0 to exit"<<endl;
+        cin>>choice;
+
+        switch(choice){
+            case 1:{
+                int data;
+                cout<<"Enter the data to insert at end: ";
+                cin>>data;
+                list.insertAtEnd(data);
+                break;
+            }
+            case 2:{
+                int data;
+                cout<<"Enter the data to insert at front: ";
+                cin>>data;
+                list.insertAtFront(data);
+                break;
+            }
+            case 3:{
+                int index, data;
+                cout<<"Enter the index to insert at: ";
+                cin>>index;
+                cout<<"Enter the data to insert at index "<<index<<": ";
+                cin>>data;
+                list.insertAtIndex(index, data);
+                break;
+            }
+            case 4:{
+                int index, data;
+                cout<<"Enter the index to update: ";
+                cin>>index;
+                cout<<"Enter the data to update at index "<<index<<": ";
+                cin>>data;
+                list.updateAtIndex(index, data);
+                break;
+            }
+            case 5:{
+                int index;
+                cout<<"Enter the index to delete: ";
+                cin>>index;
+                list.deleteAtIndex(index);
+                break;
+            }
+            case 6:{
+                cout<<"The linked list is: ";
+                list.displayList();
+                break;
+            }
+            case 0:{
+                cout<<"Exiting..."<<endl;
+                break;
+            }
+            default:{
+                cout<<"Invalid choice. Please try again."<<endl;
+                break;
+            }
+        }
+    }while(choice != 0);
 
     return 0;
 }
