@@ -20,6 +20,7 @@ void view(){
         cout<<endl;
     }
 }
+
 int main()
 {   
     int n;
