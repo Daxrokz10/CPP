@@ -1,4 +1,3 @@
-
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -25,6 +24,7 @@ void quickSort(vector<int> &vec, int low, int high) {
 
     if (low < high) {
 
+        
         int pi = partition(vec, low, high);
 
         quickSort(vec, low, pi - 1);
