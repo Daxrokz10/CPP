@@ -18,18 +18,12 @@ int binary_search(int arr[],int n,int key){
 }
 int main()
 {
-    int n;
-    cout << "Enter the number of elements: ";
-    cin >> n;
-    cout << "Enter the elements: ";
-    int arr[n];
-    for(int i = 0; i < n; i++) {
-        cin >> arr[i];
-    }
+    int arr[5] = {66, 21 ,46, 11, 5};
+    
     cout << "Enter the element to search: ";
     int key;
     cin >> key;
-    int index = binary_search(arr,n,key);
+    int index = binary_search(arr,5,key);
     if(index != -1){
         cout << "Element found at index: " << index << endl;
     }else{
